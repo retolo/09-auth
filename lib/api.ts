@@ -1,7 +1,30 @@
 import axios from "axios";
-
+const baseURL = process.env.NEXT_PUBLIC_API_URL + '/api';
 
 export const NextServer = axios.create({
-    baseURL: 'http://localhost:3000/api',
+    baseURL: baseURL,
     withCredentials: true
 })
+
+
+export type RegisterRequest = {
+    email: string,
+    password: string,
+    userName: string
+}
+
+
+export type User = {
+    email: string,
+    password: string,
+    userName?: string,
+    photoUrl?: string,
+    createdAt: string,
+    updatedAt: string
+
+}
+
+export type LoginRequest ={
+    email: string,
+    password: string
+}

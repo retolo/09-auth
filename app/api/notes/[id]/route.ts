@@ -8,7 +8,7 @@ type Props = {
 export async function GET(request:NextRequest, {params}: Props) {
     const {id} = await params;
     try {
-        const {data} = await api(`/notes${id}`);
+        const {data} = await api.get(`/notes${id}`);
         return NextResponse.json(data)
     } catch (error) {
         const errorData = error as ApiError;
@@ -31,7 +31,7 @@ export async function DELETE(request:NextRequest, {params}: Props) {
     const {id} = await params
     
     try {
-        const {data} = await api(`/notes${id}`);
+        const {data} = await api.delete(`/notes${id}`);
         return NextResponse.json(data)
     } catch (error) {
         const errorData = error as ApiError;

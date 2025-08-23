@@ -8,7 +8,7 @@ import { NextResponse, NextRequest } from "next/server";
 
 export async function GET(){
     try {
-        const {data} = await api('/notes')
+        const {data} = await api.get('/notes')
 
         return NextResponse.json(data)
     } catch (error) {
@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     try {
         
-        const {data} = await api(`/notes`, body);
+        const {data} = await api.post(`/notes`, body);
 
         return NextResponse.json(data)
     } catch (error) {

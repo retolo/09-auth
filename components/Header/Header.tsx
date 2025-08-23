@@ -1,7 +1,7 @@
 import Link from "next/link";
 import css from './Header.module.css'
 import TagsMenu from "../TagsMenu/TagsMenu";
-
+import AuthNavigation from "../AuthNavigation/AuthNavigation";
 
 
 const Header = async () =>{
@@ -15,9 +15,7 @@ const Header = async () =>{
             </Link>
             <nav aria-label="Main Navigation">
                 <ul className={css.navigation}>
-                    <li>
-                        <Link href="/">Home</Link>
-                    </li>
+                    <AuthNavigation/>
                     <li>
                         <TagsMenu/>
                     </li>
