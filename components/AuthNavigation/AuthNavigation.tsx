@@ -8,9 +8,9 @@ const AuthNavigation = () =>{
     return(
         <>
              <li className={css.navigationItem}>
-                <a href="/profile"  className={css.navigationLink}>
+                <Link prefetch={false}  href="/profile"  className={css.navigationLink}>
                     Profile
-                </a>
+                </Link>
             </li>
 
             <li className={css.navigationItem}>
@@ -21,13 +21,13 @@ const AuthNavigation = () =>{
             </li>
 
             <li className={css.navigationItem}>
-                <Link href="/sign-in"  className={css.navigationLink}>
+                <Link prefetch={false} href="/sign-in"  className={css.navigationLink}>
                     Login
                 </Link>
             </li>
 
             <li className={css.navigationItem}>
-                <Link href="/sign-up"  className={css.navigationLink}>
+                <Link prefetch={false} href="/sign-up"  className={css.navigationLink}>
                     Sign up
                 </Link>
             </li>

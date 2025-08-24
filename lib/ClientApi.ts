@@ -1,5 +1,5 @@
 
-import { cookies } from "next/headers";
+
 import { type Note} from "../types/note";
 import { LoginRequest, NextServer } from "./api";
 import { RegisterRequest, User } from "./api";
@@ -24,7 +24,7 @@ interface FetchNotesRequest{
 
 
 export const fetchNotes = async ({searchText, pageQuery, tagNote}: FetchNotesRequest): Promise<FetchNotesProps> => {
-    const cookieStore = await cookies()
+    
     const mykey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
     const response = await NextServer.get<FetchNotesProps>(
         '/notes'

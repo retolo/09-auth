@@ -1,7 +1,27 @@
 import css from './profile.module.css'
 import Link from 'next/link';
 import Image from 'next/image';
-const Profile = () =>{
+import { Metadata } from 'next';
+
+
+export const metadata: Metadata = {
+    title: 'Profile',
+    description: 'Profile Page',
+    openGraph: {
+        title: 'Profile',
+        description: 'Profile Page',
+        url: '/profile',
+        images: [{
+            url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
+            width: 1200,
+            height: 630,
+            alt: 'Profile Page'
+            }],
+    }
+}
+
+const  Profile =  () =>{
+    
     return(
         <main className={css.mainContent}>
             <div className={css.profileCard}>
