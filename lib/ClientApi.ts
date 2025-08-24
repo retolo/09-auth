@@ -1,9 +1,6 @@
-
-
 import { type Note} from "../types/note";
 import { LoginRequest, NextServer } from "./api";
 import { RegisterRequest, User } from "./api";
-
 interface FetchNotesProps{
     notes: Note[]
     totalPages: number
@@ -121,7 +118,7 @@ export const login = async (data: LoginRequest) =>{
     const response = await NextServer.post<User>('/auth/login', data, {headers: {
                 accept: 'application/json',
                 "Content-Type": 'application/json',
-                Authorization: `Bearer ${mykey}`
+                Authorization: `Bearer ${mykey}`,
     }})
     return response.data
 }

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { boolean } from "yup";
 const baseURL = process.env.NEXT_PUBLIC_API_URL + '/api';
 
 export const NextServer = axios.create({
@@ -27,4 +28,11 @@ export type User = {
 export type LoginRequest ={
     email: string,
     password: string
+}
+export type UpdateUsername = {
+    userName: string
+}
+
+export type CheckSessionRequest = {
+    success: boolean
 }

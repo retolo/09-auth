@@ -2,7 +2,7 @@ import css from './profile.module.css'
 import Link from 'next/link';
 import Image from 'next/image';
 import { Metadata } from 'next';
-
+import { getMe } from '@/lib/ServerApi';
 
 export const metadata: Metadata = {
     title: 'Profile',
@@ -20,14 +20,14 @@ export const metadata: Metadata = {
     }
 }
 
-const  Profile =  () =>{
-    
+const  Profile = async () =>{
+    const data = await getMe()
     return(
         <main className={css.mainContent}>
             <div className={css.profileCard}>
                 <div className={css.header}>
                     <h1 className={css.formTitle}>Profile Page</h1>
-                    <Link href='' className={css.editProfileButton}>
+                    <Link href='/profile/edit' className={css.editProfileButton}>
                         Edit Profile
                     </Link>
                 </div>
@@ -42,10 +42,10 @@ const  Profile =  () =>{
                 </div>
                 <div className={css.profileInfo}>
                     <p>
-                        Username: your_username
+                        Username: {data.userName}
                     </p>
                     <p>
-                        Email: your_email@example.com
+                        Email: {data.email}
                     </p>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 'use client'
-
+import { useUserData } from '@/lib/store/noteStore';
 import css from './sign-up.module.css'
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -7,6 +7,7 @@ import { register } from '@/lib/ClientApi';
 import { RegisterRequest } from '@/lib/api';
 import { ApiError } from 'next/dist/server/api-utils';
 const SignUp = () =>{
+    const {setData} = useUserData()
     const router = useRouter();
     const [error, setError] = useState('');
 
@@ -15,8 +16,11 @@ const SignUp = () =>{
             const data = Object.fromEntries(formData) as RegisterRequest;
             const response = await register(data);
             
+            
+            
 
             if(response){
+                setData({email: data.email, password: data.password, username: data.email, isAuthenticated: true});
                 router.push('/profile')
             }
             else{
