@@ -2,6 +2,7 @@ import { type Note} from "../types/note";
 import { LoginRequest, NextServer } from "./api";
 import { RegisterRequest, User } from "./api";
 import { CheckSessionRequest } from "./api";
+import { UpdateUsername } from "./api";
 interface FetchNotesProps{
     notes: Note[]
     totalPages: number
@@ -155,4 +156,17 @@ export const getMe = async (): Promise<User> =>{
 
 
     return response.data
+}
+
+
+export const getMeUpdata = async (data: UpdateUsername) =>{
+        const mykey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
+        const response = await NextServer.patch('/auth/users/me',data, {headers:{
+                    accept: 'application/json',
+                    "Content-Type": 'application/json',
+                    Authorization: `Bearer ${mykey}`,
+                    
+        }})
+
+        return response.data
 }

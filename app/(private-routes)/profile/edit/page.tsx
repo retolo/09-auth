@@ -2,7 +2,7 @@
 import Image from "next/image";
 import css from './edit.module.css'
 import { useRouter } from "next/router";
-import { getMeUpdata} from "@/lib/ServerApi";
+import { getMeUpdata} from "@/lib/ClientApi";
 import { getMe} from "@/lib/ClientApi";
 import React, { useEffect, useState } from "react";
 
