@@ -1,4 +1,4 @@
-import { cookies, headers } from "next/headers";
+import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { checkServerSession } from "@/lib/ServerApi";
 import { parse } from "cookie";
