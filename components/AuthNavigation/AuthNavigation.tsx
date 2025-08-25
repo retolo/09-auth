@@ -4,19 +4,20 @@ import css from './AuthNavigation.module.css'
 import Link from 'next/link';
 import { useUserData } from '@/lib/store/noteStore';
 import { useRouter } from 'next/navigation';
-
+import { logout } from '@/lib/ClientApi';
 
 const AuthNavigation = () =>{
     const router = useRouter();
-    const handleLogOut = () =>{
+    const handleLogOut = async () =>{
+        await logout()
         clearData()
-        router.push(`/auth/login`)
+        router.push(`/sign-in`)
 
     }
-    const {data, clearData} = useUserData()
+    const {clearData, isAuthenticated} = useUserData()
     return(
         <>
-            {data.isAuthenticated  
+            {isAuthenticated  
                  ?(<>
                     <li className={css.navigationItem}>
                         <Link prefetch={false}  href="/profile"  className={css.navigationLink}>

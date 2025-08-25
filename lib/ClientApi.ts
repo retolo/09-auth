@@ -1,6 +1,7 @@
 import { type Note} from "../types/note";
 import { LoginRequest, NextServer } from "./api";
 import { RegisterRequest, User } from "./api";
+import { CheckSessionRequest } from "./api";
 interface FetchNotesProps{
     notes: Note[]
     totalPages: number
@@ -103,11 +104,9 @@ export const  fetchNoteById = async (id: string): Promise<Note> =>{
 
 export const register = async (data: RegisterRequest) =>{
     const mykey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
-    const response = await NextServer.post<User>(`/auth/register`, data, {headers: {
-                accept: 'application/json',
-                "Content-Type": 'application/json',
-                Authorization: `Bearer ${mykey}`
-    }});
+    const response = await NextServer.post<User>(`/auth/register`, data);
+                
+    
     return response.data
 }
 
@@ -120,5 +119,40 @@ export const login = async (data: LoginRequest) =>{
                 "Content-Type": 'application/json',
                 Authorization: `Bearer ${mykey}`,
     }})
+    return response.data
+}
+
+export const logout = async () =>{
+    const mykey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
+    const response = await NextServer.post<User>('/auth/logout', {headers: {
+                accept: 'application/json',
+                "Content-Type": 'application/json',
+                Authorization: `Bearer ${mykey}`,
+    }})
+    return response.data
+}
+
+
+export const checkSession = async () =>{
+        const mykey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
+        const response = await NextServer.get<CheckSessionRequest>('/auth/session', {headers:{
+                    accept: 'application/json',
+                    "Content-Type": 'application/json',
+                    Authorization: `Bearer ${mykey}`,
+                    
+        }})
+
+        return response.data.success
+}
+export const getMe = async (): Promise<User> =>{
+    const mykey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
+    const response = await NextServer.get('/auth/users/me', {headers:{
+                accept: 'application/json',
+                "Content-Type": 'application/json',
+                Authorization: `Bearer ${mykey}`,
+                
+    }})
+
+
     return response.data
 }

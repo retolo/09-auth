@@ -20,7 +20,7 @@ const SignUp = () =>{
             
 
             if(response){
-                setData({email: data.email, password: data.password, username: data.email, isAuthenticated: true});
+                setData(response);
                 router.push('/profile')
             }
             else{

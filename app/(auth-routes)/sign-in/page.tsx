@@ -5,9 +5,11 @@ import { useState } from 'react'
 import { LoginRequest } from '@/lib/api'
 import { login } from '@/lib/ClientApi'
 import { ApiError } from 'next/dist/server/api-utils'
+import { useUserData } from '@/lib/store/noteStore'
 const SignIn = () =>{
     const router = useRouter()
     const [error, setError] = useState('')
+    const {setData} = useUserData()
 
     const handleLogin = async (formData: FormData) =>{
         try{
@@ -15,7 +17,8 @@ const SignIn = () =>{
             const response = await login(data);
 
             if(response){
-                router.push(`/`)
+                setData(response)
+                router.push(`/profile`)
             }
             else{
                 setError('You are not authorized')

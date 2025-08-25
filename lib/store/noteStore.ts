@@ -1,4 +1,4 @@
-import { string } from 'yup';
+import { User } from '../api';
 import {create} from 'zustand';
 
 import { persist } from 'zustand/middleware';
@@ -23,24 +23,15 @@ const initialDraft: CreateTask = {
     tag: 'Todo',
 }
 
-interface User{
-    isAuthenticated: boolean,
-    email: string,
-    password: string,
-    username?: string
-}
+
 
 type isAuthenticatedStore = {
-    data: User,
-    setData: (noteData: User) => void,
+    isAuthenticated: boolean,
+    user: User | null,
+    setData: (userData: User) => void,
     clearData: () => void
 }
-const initialData: User = {
-    email: '',
-    password: '',
-    isAuthenticated: false,
-    username: ''
-}
+
 
 
 export const useNoteDraft = create<NoteDraftStore>()(
@@ -62,13 +53,18 @@ export const useNoteDraft = create<NoteDraftStore>()(
 export const useUserData = create<isAuthenticatedStore>()(
     persist(
         (set) =>({
-            data: initialData,
-            setData: (newUserData: User) => set({data: newUserData}),
-            clearData: () => set({data: initialData})
+            isAuthenticated: false,
+            user: null,
+            setData: (userData: User) =>{
+                set(() => ({user: userData, isAuthenticated: true}))
+            },
+            clearData: () => {
+                set(() => ({user: null, isAuthenticated: false}))
+            }
         }),
         {
             name: 'user-data',
-            partialize: (state) => ({data: state.data})
+            partialize: (state) => ({user: state.user})
         }
     )
 )

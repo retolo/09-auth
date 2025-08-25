@@ -1,6 +1,7 @@
 'use client'
 import { useUserData } from "@/lib/store/noteStore";
-import { checkSession, getMe } from "@/lib/ServerApi";
+import { checkSession} from "@/lib/ClientApi";
+import { getMe } from "@/lib/ClientApi";
 import React, { useEffect } from "react";
 
 type Props = {
@@ -20,7 +21,7 @@ const AuthProvider = ({children}: Props) =>{
                 const user = await getMe()
 
                 if(user){
-                    setData({email: user.email, password: user.password, username: user.userName, isAuthenticated: true})
+                    setData(user)
                 }
                 else{
                     clearData()
