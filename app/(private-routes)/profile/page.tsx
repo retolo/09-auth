@@ -2,7 +2,7 @@ import css from './profile.module.css'
 import Link from 'next/link';
 import Image from 'next/image';
 import { Metadata } from 'next';
-import { getMe } from '@/lib/ServerApi';
+import { getMe } from '@/lib/ClientApi';
 
 export const metadata: Metadata = {
     title: 'Profile',
