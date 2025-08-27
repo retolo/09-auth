@@ -3,9 +3,9 @@ import css from './sign-in.module.css'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { LoginRequest } from '@/lib/api/api'
-import { login } from '@/lib/api/ClientApi'
+import { login } from '@/lib/api/clientApi'
 import { ApiError } from 'next/dist/server/api-utils'
-import { useUserData } from '@/lib/store/noteStore'
+import { useUserData } from "@/lib/store/authStore";
 const SignIn = () =>{
     const router = useRouter()
     const [error, setError] = useState('')

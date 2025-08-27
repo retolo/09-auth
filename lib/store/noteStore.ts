@@ -1,4 +1,4 @@
-import { User } from '../api/api';
+
 import {create} from 'zustand';
 
 import { persist } from 'zustand/middleware';
@@ -25,12 +25,7 @@ const initialDraft: CreateTask = {
 
 
 
-type isAuthenticatedStore = {
-    isAuthenticated: boolean,
-    user: User | null,
-    setData: (userData: User) => void,
-    clearData: () => void
-}
+
 
 
 
@@ -50,21 +45,3 @@ export const useNoteDraft = create<NoteDraftStore>()(
 )
 
 
-export const useUserData = create<isAuthenticatedStore>()(
-    persist(
-        (set) =>({
-            isAuthenticated: false,
-            user: null,
-            setData: (userData: User) =>{
-                set(() => ({user: userData, isAuthenticated: true}))
-            },
-            clearData: () => {
-                set(() => ({user: null, isAuthenticated: false}))
-            }
-        }),
-        {
-            name: 'user-data',
-            partialize: (state) => ({user: state.user})
-        }
-    )
-)

@@ -1,9 +1,9 @@
 'use client'
-import { useUserData } from '@/lib/store/noteStore';
+import { useUserData } from "@/lib/store/authStore";
 import css from './sign-up.module.css'
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { register } from '@/lib/api/ClientApi';
+import { register } from '@/lib/api/clientApi';
 import { RegisterRequest } from '@/lib/api/api';
 import { ApiError } from 'next/dist/server/api-utils';
 const SignUp = () =>{

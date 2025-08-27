@@ -2,8 +2,8 @@
 import Image from "next/image";
 import css from './edit.module.css'
 import { useRouter } from "next/navigation";
-import { updateMe} from "@/lib/api/ClientApi";
-import { getMe} from "@/lib/api/ClientApi";
+import { updateMe} from "@/lib/api/clientApi";
+import { getMe} from "@/lib/api/clientApi";
 import React, { useEffect, useState } from "react";
 
 const Edit =  () =>{

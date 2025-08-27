@@ -1,4 +1,4 @@
-import { fetchNoteByIdServer } from '@/lib/api/ServerApi';
+import { fetchNoteByIdServer } from '@/lib/api/serverApi';
 import Notepreview from '@/app/@modal/(.)notes/[id]/NotePreview.client';
 import { QueryClient, dehydrate, HydrationBoundary } from '@tanstack/react-query';
 type Props = {

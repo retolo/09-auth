@@ -2,9 +2,18 @@ import { cookies } from "next/headers";
 import { NextServer } from "./api";
 import { UpdateUsername, User } from "./api";
 import { Note } from "@/types/note";
-import { FetchNotesProps, FetchNotesRequest } from "./ClientApi";
 
 
+export interface FetchNotesProps{
+    notes: Note[]
+    totalPages: number
+}
+
+export interface FetchNotesRequest{
+    searchText?: string
+    pageQuery?: number
+    tagNote?: string | null
+}
 export const checkServerSession = async () =>{
     const mykey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
     const cookiesStore =  cookies();

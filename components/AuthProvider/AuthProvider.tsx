@@ -1,7 +1,7 @@
 'use client'
-import { useUserData } from "@/lib/store/noteStore";
-import { checkSession } from "@/lib/api/ClientApi";
-import { getMe } from "@/lib/api/ClientApi";
+import { useUserData } from "@/lib/store/authStore";
+import { checkSession } from "@/lib/api/clientApi";
+import { getMe } from "@/lib/api/clientApi";
 import React, { useEffect } from "react";
 
 type Props = {

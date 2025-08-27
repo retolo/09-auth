@@ -4,7 +4,7 @@ import css from './AuthNavigation.module.css'
 import Link from 'next/link';
 import { useUserData } from '@/lib/store/noteStore';
 import { useRouter } from 'next/navigation';
-import { logout } from '@/lib/api/ClientApi';
+import { logout } from '@/lib/api/clientApi';
 
 const AuthNavigation = () =>{
     const router = useRouter();
