@@ -1,7 +1,9 @@
 import { cookies } from "next/headers";
 import { NextServer } from "./api";
-import { UpdateUsername, User } from "./api";
+
+
 import { Note } from "@/types/note";
+import { UpdateUsername, User } from "@/types/user";
 
 
 export interface FetchNotesProps{

@@ -1,6 +1,7 @@
 import { persist } from 'zustand/middleware';
-import { User } from '../api/api';
+
 import {create} from 'zustand';
+import { User } from '@/types/user';
 
 
 
