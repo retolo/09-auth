@@ -1,5 +1,4 @@
 import axios from "axios";
-import { boolean } from "yup";
 const baseURL = process.env.NEXT_PUBLIC_API_URL + '/api';
 
 export const NextServer = axios.create({
