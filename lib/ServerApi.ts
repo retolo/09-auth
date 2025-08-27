@@ -1,11 +1,13 @@
 import { cookies } from "next/headers";
 import { NextServer } from "./api";
 import { UpdateUsername, User } from "./api";
+import { Note } from "@/types/note";
+import { FetchNotesProps, FetchNotesRequest } from "./ClientApi";
 
 
 export const checkServerSession = async () =>{
     const mykey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
-    const cookiesStore = await cookies();
+    const cookiesStore =  cookies();
     const response = await NextServer.get(`/auth/session`, {headers: {
                 accept: 'application/json',
                 "Content-Type": 'application/json',
@@ -18,35 +20,73 @@ export const checkServerSession = async () =>{
 }
 
 
-export const getMe = async (): Promise<User> =>{
+export const getMeServer = async (): Promise<User> => {
+    const cookiesStore =  cookies();
+    const { data } = await NextServer.get<User>('/users/me', {headers:{
+        Cookie: cookiesStore.toString(),
+    }});
+    return data;
+};
+
+
+export const updateMeServer = async (data: UpdateUsername): Promise<User> => {
+    const cookiesStore =  cookies();
+    const res = await NextServer.patch<User>('/users/me', data, {headers:{
+        Cookie: cookiesStore.toString(),
+    }});
+    return res.data;
+};
+
+export const  fetchNoteByIdServer = async (id: string): Promise<Note> =>{
     const mykey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
-    const response = await NextServer.get('/users/me', {headers:{
+    const cookiesStore =  cookies();
+    const response = await NextServer.get<Note>(
+        `/notes'${id}`,
+        {
+            headers:{
                 accept: 'application/json',
                 "Content-Type": 'application/json',
                 Authorization: `Bearer ${mykey}`,
-                
-    }})
-
-
+                Cookie: cookiesStore.toString(),
+            }
+        }
+    )
     return response.data
+    
 }
 
 
-export const getMeUpdata = async (data: UpdateUsername) =>{
-        const mykey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
-        const response = await NextServer.patch('/auth/users/me',data, {headers:{
-                    accept: 'application/json',
-                    "Content-Type": 'application/json',
-                    Authorization: `Bearer ${mykey}`,
-                    
-        }})
+export const fetchNotesServer = async ({searchText, pageQuery, tagNote}: FetchNotesRequest): Promise<FetchNotesProps> => {
+    
+    const mykey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
+    const cookiesStore =  cookies();
+    const response = await NextServer.get<FetchNotesProps>(
+        '/notes'
+,
+        {
+            params:{
+                ...(searchText ? { search: searchText } : {}),
+                ...(pageQuery ? { page: pageQuery } : {}),
+                ...(tagNote ? { tag: tagNote } : {}),
+                
+                
+                
+            },
+            headers:{
+                accept: 'application/json',
+                "Content-Type": 'application/json',
+                Authorization: `Bearer ${mykey}`,
+                Cookie: cookiesStore.toString(),
+                
+            }
+        }
+        
+    );
 
-        return response.data
+    
+    return response.data
+
 }
-
-
-
-
 
 
 

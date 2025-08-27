@@ -2,8 +2,8 @@
 import Image from "next/image";
 import css from './edit.module.css'
 import { useRouter } from "next/navigation";
-import { getMeUpdata} from "@/lib/ServerApi";
-import { getMe} from "@/lib/ServerApi";
+import { updateMe} from "@/lib/ClientApi";
+import { getMe} from "@/lib/ClientApi";
 import React, { useEffect, useState } from "react";
 
 const Edit =  () =>{
@@ -21,7 +21,7 @@ const Edit =  () =>{
      
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) =>{
         event.preventDefault()
-        await getMeUpdata({userName: userName})
+        await updateMe({userName: userName})
         
     }
 
@@ -44,9 +44,9 @@ const Edit =  () =>{
                 className={css.avatar}
                 />
 
-                <form  className={css.profileInfo}>
+                <form onSubmit={handleSubmit}  className={css.profileInfo}>
                 <div className={css.usernameWrapper}>
-                    <label htmlFor="username">Username:</label>
+                    <label htmlFor="username">Username: {userName}</label>
                     <input value={userName} onChange={handleChangeName} id="username"
                     type="text"
                     className={css.input}
