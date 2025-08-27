@@ -5,7 +5,7 @@ import { useDebounce } from 'use-debounce'
 import SearchBox from '@/components/SearchBox/SearchBox'
 import  React, { useState } from 'react'
 import { useQuery, keepPreviousData } from '@tanstack/react-query'
-import { fetchNotes } from '@/lib/ClientApi'
+import { fetchNotes } from '@/lib/api/ClientApi';
 import Pagination from '@/components/Pagination/Pagination'
 import { Note } from '@/types/note'
 import Link from 'next/link'

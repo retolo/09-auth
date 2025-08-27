@@ -3,7 +3,7 @@ import { useUserData } from '@/lib/store/noteStore';
 import css from './sign-up.module.css'
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { register } from '@/lib/ClientApi';
+import { register } from '@/lib/api/ClientApi';
 import { RegisterRequest } from '@/lib/api/api';
 import { ApiError } from 'next/dist/server/api-utils';
 const SignUp = () =>{
