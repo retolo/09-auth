@@ -1,7 +1,7 @@
-import { type Note} from "../types/note";
-import { LoginRequest, NextServer, UpdateUsername } from "./api/api";
-import { RegisterRequest, User } from "./api/api";
-import { CheckSessionRequest } from "./api/api";
+import { Note } from "@/types/note";
+import { LoginRequest, NextServer, UpdateUsername } from "./api";
+import { RegisterRequest, User } from "../api/api";
+import { CheckSessionRequest } from "../api/api";
 
 export interface FetchNotesProps{
     notes: Note[]
