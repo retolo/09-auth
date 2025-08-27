@@ -1,7 +1,7 @@
 'use client'
 import { useRouter } from 'next/navigation';
 import {DehydratedState, useQuery, HydrationBoundary} from "@tanstack/react-query";
-import { fetchNoteById } from '@/lib/ClientApi';
+import { fetchNoteById } from "@/lib/api/ClientApi";
 import Modal from "@/components/Modal/Modal";
 import css from './NotePreview.module.css'
 

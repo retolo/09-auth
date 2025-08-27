@@ -1,7 +1,7 @@
 'use client'
 import { useUserData } from "@/lib/store/noteStore";
-import { checkSession } from "@/lib/ClientApi";
-import { getMe } from "@/lib/ClientApi";
+import { checkSession } from "@/lib/api/ClientApi";
+import { getMe } from "@/lib/api/ClientApi";
 import React, { useEffect } from "react";
 
 type Props = {

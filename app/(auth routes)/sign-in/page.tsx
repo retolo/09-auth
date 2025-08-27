@@ -2,7 +2,7 @@
 import css from './sign-in.module.css'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { LoginRequest } from '@/lib/api'
+import { LoginRequest } from '@/lib/api/api'
 import { login } from '@/lib/ClientApi'
 import { ApiError } from 'next/dist/server/api-utils'
 import { useUserData } from '@/lib/store/noteStore'

@@ -1,4 +1,4 @@
-import { User } from '../api';
+import { User } from '../api/api';
 import {create} from 'zustand';
 
 import { persist } from 'zustand/middleware';
