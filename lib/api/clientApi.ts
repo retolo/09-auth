@@ -93,7 +93,7 @@ export const  deleteNote = async (id: string): Promise<Note> =>{
 export const  fetchNoteById = async (id: string): Promise<Note> =>{
     const mykey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
     const response = await NextServer.get<Note>(
-        `/notes'/${id}`,
+        `/notes/${id}`,
         {
             headers:{
                 accept: 'application/json',
@@ -107,48 +107,49 @@ export const  fetchNoteById = async (id: string): Promise<Note> =>{
 }
 
 export const register = async (data: RegisterRequest): Promise<RegisterRequest> =>{
-    const mykey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
-    const response = await NextServer.post<RegisterRequest>(`/auth/register`, data, {headers: {
-                        accept: 'application/json',
-                        "Content-Type": 'application/json',
-                        Authorization: `Bearer ${mykey}`,
-    }});
+    
+    const response = await NextServer.post<User>(`/auth/register`, data);
+                        
+    
                 
     
-    return response.data
+    return{
+        email: response.data.email,
+        password: response.data.email,
+        userName: response.data.username,
+        avatar: response.data.avatar
+    }
 }
 
 
 
 export const login = async (data: LoginRequest): Promise<LoginRequest>=>{
-    const mykey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
-    const response = await NextServer.post<LoginRequest>('/auth/login', data, {headers: {
-                accept: 'application/json',
-                "Content-Type": 'application/json',
-                Authorization: `Bearer ${mykey}`,
-    }})
+    
+    const response = await NextServer.post<User>('/auth/login', data)
+                
+    
+    return{
+        email: response.data.email,
+        password: response.data.email,
+        avatar: response.data.avatar
+        
+    }
+}
+
+export const logout = async () =>{
+    const response = await NextServer.post<User>('/auth/logout')
+         
+    
     return response.data
 }
 
-export const logout = async (data: LoginRequest) =>{
-    const mykey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
-    const response = await NextServer.post<LoginRequest>('/auth/logout', data, {headers: {
-                accept: 'application/json',
-                "Content-Type": 'application/json',
-                Authorization: `Bearer ${mykey}`,
-    }})
-    return response.data
-}
 
+export const checkSession = async (): Promise<CheckSessionRequest> =>{
 
-export const checkSession = async () =>{
-        const mykey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
-        const response = await NextServer.get<CheckSessionRequest>('/auth/session', {headers:{
-                    accept: 'application/json',
-                    "Content-Type": 'application/json',
-                    Authorization: `Bearer ${mykey}`,
+        const response = await NextServer.get<CheckSessionRequest>('/auth/session'
+
                     
-        }})
+        )
 
         return response.data;
 }
@@ -158,14 +159,8 @@ export const checkSession = async () =>{
 
 export const getMe = async (): Promise<User> => {
     const mykey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
-    const { data } = await NextServer.get<User>('/users/me',
-        {
-            headers:{
-                    accept: 'application/json',
-                    "Content-Type": 'application/json',
-                    Authorization: `Bearer ${mykey}`,
-            }
-        }
+    const { data } = await NextServer.get<User>('/users/me'
+
     );
     return data;
 };

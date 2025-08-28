@@ -10,8 +10,8 @@ const AuthNavigation = () =>{
     const {user, clearData, isAuthenticated} = useUserData()
     const router = useRouter();
     const handleLogOut = async () =>{
-        if(user?.password !== undefined && user?.email !== undefined)
-        await logout({password: user?.password, email: user?.email})
+        
+        await logout()
         clearData()
         router.push(`/sign-in`)
 
