@@ -33,7 +33,7 @@ const  Profile = async () =>{
                 </div>
                 <div className={css.avatarWrapper}>
                     <Image
-                        src="https://ac.goit.global/fullstack/react/default-avatar.jpg"
+                        src={data.avatar}
                         alt="User Avatar"
                         width={120}
                         height={120}
@@ -42,7 +42,7 @@ const  Profile = async () =>{
                 </div>
                 <div className={css.profileInfo}>
                     <p>
-                        Username: {data.userName}
+                        Username: {data.username}
                     </p>
                     <p>
                         Email: {data.email}

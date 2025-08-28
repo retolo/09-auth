@@ -2,8 +2,10 @@ import { Note } from "@/types/note";
 import { LoginRequest, NextServer } from "./api";
 import { RegisterRequest } from "./api";
 import { CheckSessionRequest } from "./api";
-import { UpdateUsername, User } from "@/types/user";
-
+import { User } from "@/types/user";
+export type UpdateUsername = {
+    username: string
+}
 export interface FetchNotesProps{
     notes: Note[]
     totalPages: number
@@ -74,7 +76,7 @@ export const  createNote = async (newTask: CreateNoteTask): Promise<Note> => {
 export const  deleteNote = async (id: string): Promise<Note> =>{
     const mykey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
     const response = await NextServer.delete<Note>(
-        `/notes${id}`,
+        `/notes/${id}`,
         {
             headers:{
                 accept: 'application/json',
@@ -91,7 +93,7 @@ export const  deleteNote = async (id: string): Promise<Note> =>{
 export const  fetchNoteById = async (id: string): Promise<Note> =>{
     const mykey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
     const response = await NextServer.get<Note>(
-        `/notes'${id}`,
+        `/notes'/${id}`,
         {
             headers:{
                 accept: 'application/json',
@@ -104,12 +106,12 @@ export const  fetchNoteById = async (id: string): Promise<Note> =>{
     
 }
 
-export const register = async (data: RegisterRequest) =>{
+export const register = async (data: RegisterRequest): Promise<RegisterRequest> =>{
     const mykey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
-    const response = await NextServer.post<User>(`/auth/register`, data, {headers: {
+    const response = await NextServer.post<RegisterRequest>(`/auth/register`, data, {headers: {
                         accept: 'application/json',
-                "Content-Type": 'application/json',
-                Authorization: `Bearer ${mykey}`,
+                        "Content-Type": 'application/json',
+                        Authorization: `Bearer ${mykey}`,
     }});
                 
     
@@ -118,9 +120,9 @@ export const register = async (data: RegisterRequest) =>{
 
 
 
-export const login = async (data: LoginRequest) =>{
+export const login = async (data: LoginRequest): Promise<LoginRequest>=>{
     const mykey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
-    const response = await NextServer.post<User>('/auth/login', data, {headers: {
+    const response = await NextServer.post<LoginRequest>('/auth/login', data, {headers: {
                 accept: 'application/json',
                 "Content-Type": 'application/json',
                 Authorization: `Bearer ${mykey}`,
@@ -128,9 +130,9 @@ export const login = async (data: LoginRequest) =>{
     return response.data
 }
 
-export const logout = async () =>{
+export const logout = async (data: LoginRequest) =>{
     const mykey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
-    const response = await NextServer.post<User>('/auth/logout', {headers: {
+    const response = await NextServer.post<LoginRequest>('/auth/logout', data, {headers: {
                 accept: 'application/json',
                 "Content-Type": 'application/json',
                 Authorization: `Bearer ${mykey}`,
@@ -148,19 +150,37 @@ export const checkSession = async () =>{
                     
         }})
 
-        return response.data.success
+        return response.data;
 }
 
 
 
 
 export const getMe = async (): Promise<User> => {
-  const { data } = await NextServer.get<User>('/users/me');
-  return data;
+    const mykey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
+    const { data } = await NextServer.get<User>('/users/me',
+        {
+            headers:{
+                    accept: 'application/json',
+                    "Content-Type": 'application/json',
+                    Authorization: `Bearer ${mykey}`,
+            }
+        }
+    );
+    return data;
 };
 
 
 export const updateMe = async (data: UpdateUsername): Promise<User> => {
-  const res = await NextServer.patch<User>('/users/me', data);
-  return res.data;
+    const mykey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
+    const res = await NextServer.patch<User>('/users/me', data, 
+        {
+            headers:{
+                    accept: 'application/json',
+                    "Content-Type": 'application/json',
+                    Authorization: `Bearer ${mykey}`,
+            }
+        }
+    );
+    return res.data;
 };

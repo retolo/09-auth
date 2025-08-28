@@ -17,7 +17,7 @@ const SignIn = () =>{
             const response = await login(data);
 
             if(response){
-                setData(response)
+                setData({username: response.email, email: response.email, avatar: response.avatar})
                 router.push(`/profile`)
             }
             else{

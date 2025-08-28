@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { checkServerSession } from "@/lib/api/serverApi";
 import { parse } from "cookie";
-const privateRoutes = ['/profile']
+const privateRoutes = ['/profile', '/notes', '/notes/filter']
 const publicRoutes = ['/sign-in', '/sign-up']
 
 export async function middleware(request: NextRequest){
@@ -44,13 +44,13 @@ export async function middleware(request: NextRequest){
                         }
                         
                     }
-                    if(publicRoutes){
+                    if(isPublicRoute){
                         return NextResponse.redirect(new URL('/', request.url), {headers:{
                             Cookie: cookiesStore.toString()
                         }});
                         
                     }
-                    if(privateRoutes){
+                    if(isPrivateRoute){
                         return NextResponse.next({
                             headers:{
                                 Cookie: cookiesStore.toString()
@@ -85,5 +85,7 @@ export async function middleware(request: NextRequest){
 
 
 export const config = {
-    matcher: ['/profile/:path*', '/sign-in', '/sign-up']
+    matcher: ['/profile/:path*', '/sign-in', '/sign-up', '/notes/:path*']
 }
+
+

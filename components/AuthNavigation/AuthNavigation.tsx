@@ -7,14 +7,16 @@ import { useRouter } from 'next/navigation';
 import { logout } from '@/lib/api/clientApi';
 
 const AuthNavigation = () =>{
+    const {user, clearData, isAuthenticated} = useUserData()
     const router = useRouter();
     const handleLogOut = async () =>{
-        await logout()
+        if(user?.password !== undefined && user?.email !== undefined)
+        await logout({password: user?.password, email: user?.email})
         clearData()
         router.push(`/sign-in`)
 
     }
-    const {user, clearData, isAuthenticated} = useUserData()
+    
     return(
         <>
             {isAuthenticated  

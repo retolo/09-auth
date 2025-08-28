@@ -17,7 +17,7 @@ const AuthProvider = ({children}: Props) =>{
         const fetchUser = async () =>{
             const isAuth = await checkSession()
 
-            if(isAuth){
+            if(isAuth.success){
                 const user = await getMe()
 
                 if(user){

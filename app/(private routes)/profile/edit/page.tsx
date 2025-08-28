@@ -4,11 +4,14 @@ import css from './edit.module.css'
 import { useRouter } from "next/navigation";
 import { updateMe} from "@/lib/api/clientApi";
 import { getMe} from "@/lib/api/clientApi";
+import { useUserData } from "@/lib/store/authStore";
 import React, { useEffect, useState } from "react";
 
 const Edit =  () =>{
+    const {setData} = useUserData()
     const [userName, setUserName] = useState<string>('')
     const [userEmail, setUserEmail] = useState<string>('')
+    const [userAvatar, setUserAvatar] = useState<string>('')
 
     const router = useRouter()
     const handleCancel = () =>{
@@ -21,14 +24,18 @@ const Edit =  () =>{
      
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) =>{
         event.preventDefault()
-        await updateMe({userName: userName})
+        await updateMe({username: userName})
+        setData({username: userName, email: userEmail, avatar: userAvatar})
         
     }
 
     useEffect(() =>{
         getMe()
         .then((value) =>{
-            setUserEmail(value.email)
+            setUserEmail(value.email);
+            setUserName(value.username)
+            setUserAvatar(value.avatar)
+
         })
         
     }, [])
@@ -37,7 +44,7 @@ const Edit =  () =>{
             <div className={css.profileCard}>
                 <h1 className={css.formTitle}>Edit Profile</h1>
 
-                <Image src="https://ac.goit.global/fullstack/react/default-avatar.jpg"
+                <Image src={userAvatar}
                 alt="User Avatar"
                 width={120}
                 height={120}
@@ -59,7 +66,7 @@ const Edit =  () =>{
                 
 
                 <div className={css.actions}>
-                    <button onSubmit={() => handleSubmit}  type="submit" className={css.saveButton}>
+                    <button  type="submit" className={css.saveButton}>
                     Save
                     </button>
                     <button onClick={handleCancel} type="button" className={css.cancelButton}>

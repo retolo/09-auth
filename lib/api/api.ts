@@ -10,7 +10,8 @@ export const NextServer = axios.create({
 export type RegisterRequest = {
     email: string,
     password: string,
-    userName: string
+    userName: string,
+    avatar: string
 }
 
 
@@ -18,7 +19,8 @@ export type RegisterRequest = {
 
 export type LoginRequest ={
     email: string,
-    password: string
+    password: string,
+    avatar: string
 }
 
 
